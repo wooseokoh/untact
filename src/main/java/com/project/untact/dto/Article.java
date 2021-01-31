@@ -1,5 +1,12 @@
 package com.project.untact.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article {
 
 	private int id;
@@ -7,61 +14,5 @@ public class Article {
 	private String updateDate;
 	private String title;
 	private String body;
-	
-	public Article(int id, String reDate, String updateDate, String title, String body) {
-		this.id = id;
-		this.reDate = reDate;
-		this.updateDate = updateDate;
-		this.title = title;
-		this.body = body;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getReDate() {
-		return reDate;
-	}
-
-	public void setReDate(String reDate) {
-		this.reDate = reDate;
-	}
-
-	public String getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "Article [id=" + id + ", reDate=" + reDate + ", updateDate=" + updateDate + ", title=" + title
-				+ ", body=" + body + "]";
-	}
-	
 
 }
