@@ -23,8 +23,8 @@ public class UsrArticleController {
 		articles = new ArrayList<>();
 		
 		// 게시물 2개 생성
-		articles.add(new Article(++articlesLastId, "2021-01-31 12:12:12", "제목1", "내용1"));
-		articles.add(new Article(++articlesLastId, "2021-01-31 12:12:12", "제목2", "내용2"));
+		articles.add(new Article(++articlesLastId, "2021-01-31 12:12:12", "2021-01-31 12:12:12", "제목1", "내용1"));
+		articles.add(new Article(++articlesLastId, "2021-01-31 12:12:12", "2021-01-31 12:12:12", "제목2", "내용2"));
 	}
 	
 	@RequestMapping("/usr/article/detail")
@@ -43,6 +43,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public Map<String, Object> doAdd(String title, String body) {
 		String regDate = Util.getNowDateStr();
+		String updateDate = regDate;
 		
 		articles.add(new Article(++articlesLastId, regDate, title, body));
 		
@@ -103,6 +104,7 @@ public class UsrArticleController {
 			rs.put("msg", String.format("%d번 게시물은 존재하지 않습니다.", id));			
 		}
 		
+		selArticle.setUpdateDate(Util.getNowDateStr());
 		selArticle.setTitle(title);
 		selArticle.setBody(body);
 		
