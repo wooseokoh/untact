@@ -23,8 +23,7 @@ public class ArticleService {
 	}
 
 
-
-	public ResultData add(String title, String body) {		
+	public ResultData addArticle(String title, String body) {		
 		int id = articleDao.addArticle(title, body);
 		return new ResultData("S-1", "성공하였습니다.", "id", id);
 	}
@@ -39,13 +38,8 @@ public class ArticleService {
 		return new ResultData("S-1", "삭제하였습니다.", "id", id);
 	}
 
-	public ResultData modify(int id, String title, String body) {
-		Article article = getArticle(id);
-
-		article.setTitle(title);
-		article.setBody(body);
-		article.setUpdateDate(Util.getNowDateStr());
-
+	public ResultData modifyArticle(int id, String title, String body) {
+		articleDao.modifyArticle(id,title,body);
 		return new ResultData("S-1", "게시물을 수정하였습니다.", "id", id);
 	}
 
