@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.untact.dto.Member;
 import com.project.untact.dto.ResultData;
 import com.project.untact.service.MemberService;
 
@@ -22,6 +23,12 @@ public class UsrMemberController {
 	public ResultData doJoin(@RequestParam Map<String, Object> param) {
 		if (param.get("loginId") == null) {
 			return new ResultData("F-1", "loginId을 입력해주세요.");
+		}
+		
+		Member existingMemmember = memberService.getMemberByLoginId((String) param.get("loginId"));
+
+		if (existingMemmember != null) {
+			return new ResultData("F-2", String.format("%s (은)는 이미 사용중인 로그인아이디 입니다.", param.get("loginId")));
 		}
 		
 		if (param.get("loginPw") == null) {
