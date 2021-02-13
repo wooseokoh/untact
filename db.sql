@@ -28,6 +28,11 @@ title CHAR(100) NOT NULL,
 # 게시물 테이블에 회원번호 칼럼 추가
 ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
 
+# 기존 게시물의 작성자를 회원1로 저장
+UPDATE article
+SET memeberId = 1
+WHERE memberId = 0;
+
 # 게시물 테스트 데이터 생성
 INSERT INTO article
 SET regDate = NOW(),
