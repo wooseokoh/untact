@@ -2,6 +2,8 @@ package com.project.untact.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +27,9 @@ public class UsrMemberController {
 			return new ResultData("F-1", "loginId을 입력해주세요.");
 		}
 		
-		Member existingMemmember = memberService.getMemberByLoginId((String) param.get("loginId"));
+		Member existingMember = memberService.getMemberByLoginId((String) param.get("loginId"));
 
-		if (existingMemmember != null) {
+		if (existingMember != null) {
 			return new ResultData("F-2", String.format("%s (은)는 이미 사용중인 로그인아이디 입니다.", param.get("loginId")));
 		}
 		
@@ -52,5 +54,35 @@ public class UsrMemberController {
 		}
 
 		return memberService.join(param);
+	}
+	
+	@RequestMapping("/usr/member/doLogin")
+	@ResponseBody
+	public ResultData doLogin(String loginId, String loginPw, HttpSession session) {
+		if (session.getAttribute("loginedMemberId") != null) {
+			return new ResultData("F-4", "이미 로그인 되었습니다.");
+		}
+
+		if (loginId == null) {
+			return new ResultData("F-1", "loginId를 입력해주세요.");
+		}
+
+		Member existingMember = memberService.getMemberByLoginId(loginId);
+
+		if (existingMember == null) {
+			return new ResultData("F-2", "존재하지 않는 로그인아이디 입니다.", "loginId", loginId);
+		}
+
+		if (loginPw == null) {
+			return new ResultData("F-1", "loginPw를 입력해주세요.");
+		}
+
+		if (existingMember.getLoginPw().equals(loginPw) == false) {
+			return new ResultData("F-3", "비밀번호가 일치하지 않습니다.");
+		}
+
+		session.setAttribute("loginedMemberId", existingMember.getId());
+
+		return new ResultData("S-1", String.format("%s님 환영합니다.", existingMember.getNickname()));
 	}
 }
