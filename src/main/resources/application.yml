@@ -9,3 +9,7 @@ spring:
     password: wsoh1234
 mybatis:
   type-aliases-package: com.project.untact.dto
+custom:
+  logging:
+    dir: log
+    level: debug
