@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.project.untact.dto.Article;
+import com.project.untact.dto.Board;
 import com.project.untact.util.Util;
 
 @Mapper
@@ -22,9 +23,11 @@ public interface ArticleDao {
 	public void modifyArticle(@Param("id") int id,@Param("title") String title,@Param("body") String body);
 	public List<Article> getArticles(@Param("searchKeywordType") String searchKeywordType,@Param("searchKeyword") String searchKeyword);
 	public Article getForPrintArticle(int id);
-	public List<Article> getForPrintArticles(@Param("boardId") int boardId, @Param("searchKeywordType") String searchKeywordType,
-			@Param("searchKeyword") String searchKeyword, @Param("limitStart") int limitStart,
-			@Param("limitTake") int limitTakee);
+	public List<Article> getForPrintArticles(@Param("boardId") int boardId,
+			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
+			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
+
+	public Board getBoard(@Param("id") int id);
 
 	
 }

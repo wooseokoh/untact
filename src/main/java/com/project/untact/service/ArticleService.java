@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.untact.dto.Board;
 import com.project.untact.dao.ArticleDao;
 import com.project.untact.dto.Article;
 import com.project.untact.dto.ResultData;
@@ -82,6 +83,11 @@ public class ArticleService {
 		int limitTake = itemsInAPage;
 
 		return articleDao.getForPrintArticles(boardId, searchKeywordType, searchKeyword, limitStart, limitTake);
+	}
+
+
+	public Board getBoard(int id) {
+		return articleDao.getBoard(id);
 	}
 	
 }
