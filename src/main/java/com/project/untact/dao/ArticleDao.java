@@ -26,8 +26,8 @@ public interface ArticleDao {
 	public List<Article> getForPrintArticles(@Param("boardId") int boardId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
 			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
-
 	public Board getBoard(@Param("id") int id);
+	public void addReply(Map<String, Object> param);
 
 	
 }
