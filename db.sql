@@ -81,3 +81,15 @@ loginPw = "user1",
 nickname = "user1",
 cellphoneNo = "01012341234",
 email = "wsoh@gmail.com";
+
+
+
+
+/*
+insert into article
+(regDate, updateDate, memberId, title, `body`)
+SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, CONCAT('제목_', FLOOR(RAND() * 1000) + 1), CONCAT('내용_', FLOOR(RAND() * 1000) + 1)
+from article;
+*/
+
+SELECT COUNT(*) FROM article;
