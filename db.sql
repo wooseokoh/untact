@@ -86,10 +86,10 @@ email = "wsoh@gmail.com";
 
 
 /*
-insert into article
+INSERT INTO article
 (regDate, updateDate, memberId, title, `body`)
 SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, CONCAT('제목_', FLOOR(RAND() * 1000) + 1), CONCAT('내용_', FLOOR(RAND() * 1000) + 1)
-from article;
+FROM article;
 */
 
 SELECT COUNT(*) FROM article;
@@ -161,3 +161,23 @@ updateDate = NOW(),
 articleId = 2,
 memberId = 2,
 `body` = "내용3 입니다."; 
+
+
+ALTER TABLE `untact`.`reply` CHANGE `articleId` `relId` INT(10) UNSIGNED NOT NULL; 
+
+# 게시물 전용 댓글에서 범용 댓글로 바꾸기 위해 relTypeCode 추가
+ALTER TABLE reply ADD COLUMN `relTypeCode` CHAR(20) NOT NULL AFTER updateDate;
+
+# 현재는 게시물 댓글 밖에 없기 때문에 모든 행의 relTypeCode 값을 article 로 지정
+UPDATE reply
+SET relTypeCode = 'article'
+WHERE relTypeCode = '';
+
+# articleId 칼럼명을 relId로 수정
+ALTER TABLE reply CHANGE `articleId` `relId` INT(10) UNSIGNED NOT NULL;
+
+# 고속 검색을 위해서 인덱스 걸기
+ALTER TABLE reply ADD KEY (relTypeCode, relId); 
+# SELECT * FROM reply WHERE relTypeCode = 'article' AND relId = 5; # O
+# SELECT * FROM reply WHERE relTypeCode = 'article'; # O
+# SELECT * FROM reply WHERE relId = 5 AND relTypeCode = 'article'; # X
