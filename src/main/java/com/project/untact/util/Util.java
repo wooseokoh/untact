@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -121,5 +122,47 @@ public class Util {
 		} catch (UnsupportedEncodingException e) {
 			return str;
 		}
+	}
+	
+	public static <T> T ifNull(T data, T defaultValue) {
+		return data != null ? data : defaultValue;
+	}
+
+	public static <T> T reqAttr(HttpServletRequest req, String attrName, T defaultValue) {
+		return (T) ifNull(req.getAttribute(attrName), defaultValue);
+	}
+
+	public static boolean isEmpty(Object data) {
+		if (data == null) {
+			return true;
+		}
+
+		if (data instanceof String) {
+			String strData = (String) data;
+
+			return strData.trim().length() == 0;
+		} else if (data instanceof Integer) {
+			Integer integerData = (Integer) data;
+
+			return integerData != 0;
+		} else if (data instanceof List) {
+			List listData = (List) data;
+
+			return listData.isEmpty();
+		} else if (data instanceof Map) {
+			Map mapData = (Map) data;
+
+			return mapData.isEmpty();
+		}
+
+		return true;
+	}
+
+	public static <T> T ifEmpty(T data, T defaultValue) {
+		if ( isEmpty(data) ) {
+			return defaultValue;
+		}
+
+		return data;
 	}
 }
