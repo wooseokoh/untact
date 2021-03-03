@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.project.untact.dao.GenFileDao;
+import com.project.untact.dto.GenFile;
 import com.project.untact.dto.ResultData;
 import com.project.untact.util.Util;
 
@@ -90,6 +91,10 @@ public class GenFileService {
 		}
 
 		return new ResultData("S-1", "파일이 생성되었습니다.", "id", newGenFileId, "fileRealPath", targetFilePath, "fileName", targetFileName);
+	}
+
+	public GenFile getGenFile(String relTypeCode, int relId, String typeCode, String type2Code, int fileNo) {
+		return genFileDao.getGenFile(relTypeCode, relId, typeCode, type2Code, fileNo);
 	}
 
 }
