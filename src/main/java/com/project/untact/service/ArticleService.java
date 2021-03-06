@@ -40,7 +40,7 @@ public class ArticleService {
 	public ResultData deleteArticle(int id) {
 		articleDao.deleteArticle(id);
 		
-		genFileService.deleteFiles("article", id);
+		genFileService.deleteGenFiles("article", id);
 		
 		return new ResultData("S-1", "삭제하였습니다.", "id", id);
 	}
@@ -49,8 +49,6 @@ public class ArticleService {
 		articleDao.modifyArticle(param);
 
 		int id = Util.getAsInt(param.get("id"), 0);
-
-		changeInputFileRelIds(param, id);
 		
 		return new ResultData("S-1", "게시물을 수정하였습니다.", "id", id);
 	}
