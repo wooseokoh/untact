@@ -50,7 +50,7 @@ public class AdmArticleController extends BaseController {
 	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int boardId, String searchKeywordType, String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 		
 		Board board = articleService.getBoard(boardId);
-
+		
 		req.setAttribute("board", board);
 		
 		if ( board == null ) {
@@ -118,7 +118,6 @@ public class AdmArticleController extends BaseController {
 	}
 	
 	@RequestMapping("/adm/article/doAdd")
-	@ResponseBody
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
 			MultipartRequest multipartRequest) {
 		int loginedMemberId = (int)req.getAttribute("loginedMemberId");

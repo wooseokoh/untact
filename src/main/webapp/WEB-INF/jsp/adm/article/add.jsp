@@ -24,7 +24,7 @@ function ArticleAdd__checkAndSubmit(form) {
 		return false;
 	}
 	var maxSizeMb = 50;
-	var maxSize = maxSizeMb * 1024 * 1024; //50MB
+	var maxSize = maxSizeMb * 1024 * 1024;
 	if (form.file__article__0__common__attachment__1.value) {
 		if (form.file__article__0__common__attachment__1.files[0].size > maxSize) {
 			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
@@ -42,13 +42,52 @@ function ArticleAdd__checkAndSubmit(form) {
 			return;
 		}
 	}
-	form.submit();
+	
+	const startSubmitForm = function(data) {
+		let genFileIdsStr = '';
+		if (data && data.body && data.body.genFileIdsStr) {
+			genFileIdsStr = data.body.genFileIdsStr;
+		}
+		
+		form.genFileIdsStr.value = genFileIdsStr;
+		
+		form.file__article__0__common__attachment__1.value = '';
+		form.file__article__0__common__attachment__2.value = '';
+		
+		form.submit();
+	};
+	
+	const startUploadFiles = function(onSuccess) {
+		var needToUpload = form.file__article__0__common__attachment__1.value.length > 0;
+		if (!needToUpload) {
+			needToUpload = form.file__article__0__common__attachment__2.value.length > 0;
+		}
+		// 파일업로드가 필요없을경우
+		if (needToUpload == false) {
+			onSuccess();
+			return;
+		}
+		
+		var fileUploadFormData = new FormData(form);
+		
+		$.ajax({
+			url : '/common/genFile/doUpload',
+			data : fileUploadFormData,
+			processData : false,
+			contentType : false,
+			dataType : "json",
+			type : 'POST',
+			success : onSuccess
+		});
+	}
 	ArticleAdd__submited = true;
+	startUploadFiles(startSubmitForm);
 }
 </script>
 <section class="section-1">
 	<div class="bg-white shadow-md rounded container mx-auto p-8 mt-8">
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="genFileIdsStr" value="" />
 			<input type="hidden" name="boardId" value="${param.boardId}" />
 			<div class="form-row flex flex-col lg:flex-row">
 				<div class="lg:flex lg:items-center lg:w-28">
