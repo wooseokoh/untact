@@ -2,6 +2,7 @@ package com.project.untact.util;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.net.URLEncoder;
 import java.util.Arrays;
@@ -239,5 +240,15 @@ public class Util {
 		}
 
 		return true;
+	}
+	
+	public static String numberFormat(int num) {
+		DecimalFormat df = new DecimalFormat("###,###,###");
+
+		return df.format(num);
+	}
+
+	public static String numberFormat(String numStr) {
+		return numberFormat(Integer.parseInt(numStr));
 	}
 }
