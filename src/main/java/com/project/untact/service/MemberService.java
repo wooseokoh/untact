@@ -1,11 +1,12 @@
 package com.project.untact.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.project.untact.dto.Article;
 import com.project.untact.dao.MemberDao;
 import com.project.untact.dto.Member;
 import com.project.untact.dto.ResultData;
@@ -45,5 +46,12 @@ public class MemberService {
 
 	public Member getMemberByAuthKey(String authKey) {
 		return memberDao.getMemberByAuthKey(authKey);
+	}
+
+	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page, int itemsInAPage) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+
+		return memberDao.getForPrintMembers(searchKeywordType, searchKeyword, limitStart, limitTake);
 	}
 }
