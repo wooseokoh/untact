@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.untact.dto.Board;
 import com.project.untact.dto.GenFile;
+import com.project.untact.dto.Member;
 import com.project.untact.dao.ArticleDao;
 import com.project.untact.dto.Article;
 import com.project.untact.dto.ResultData;
@@ -77,20 +78,20 @@ public class ArticleService {
 	}
 
 
-	public ResultData getActorCanModifyRd(Article article, int actorId) {
-		if (article.getMemberId() == actorId) {
+	public ResultData getActorCanModifyRd(Article article, Member actor) {
+		if (article.getMemberId() == actor.getId()) {
 			return new ResultData("S-1", "가능합니다.");
 		}
 
-		if (memberService.isAdmin(actorId)) {
+		if (memberService.isAdmin(actor)) {
 			return new ResultData("S-2", "가능합니다.");
 		}
 
 		return new ResultData("F-1", "권한이 없습니다.");
 	}
 
-	public ResultData getActorCanDeleteRd(Article article, int actorId) {
-		return getActorCanModifyRd(article, actorId);
+	public ResultData getActorCanDeleteRd(Article article, Member actor) {
+		return getActorCanModifyRd(article, actor);
 	}
 
 
