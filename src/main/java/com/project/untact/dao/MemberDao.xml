@@ -25,6 +25,13 @@
 		FROM `member`
 		WHERE id = #{id}
 	</select>
+	
+	<select id="getForPrintMember" resultType="Member">
+		SELECT *
+		FROM `member`
+		WHERE id
+		= #{id}
+	</select>
 
 	<select id="getMemberByLoginId" resultType="Member">
 		SELECT *
@@ -80,6 +87,9 @@
 		</if>
 		<if test="searchKeywordType == 'loginId'">
 			AND M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="authLevel != null and authLevel != ''">
+			AND M.authLevel = #{authLevel}
 		</if>
 		ORDER BY M.id DESC
 		<if test="limitStart != null and limitTake != null">

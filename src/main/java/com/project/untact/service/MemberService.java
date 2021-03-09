@@ -18,6 +18,32 @@ public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	
+	// static 시작
+
+		public static String getAuthLevelName(Member member) {
+			switch ( member.getAuthLevel() ) {
+			case 7:
+				return "관리자";
+			case 3:
+				return "일반";
+			default:
+				return "유형정보없음";
+			}
+		}
+
+		public static String getAuthLevelNameColor(Member member) {
+			switch ( member.getAuthLevel() ) {
+			case 7:
+				return "red";
+			case 3:
+				return "gray";
+			default:
+				return "";
+			}
+		}
+
+		// static 끝
+	
 	public ResultData join(Map<String, Object> param) {
 		memberDao.join(param);
 
@@ -48,10 +74,19 @@ public class MemberService {
 		return memberDao.getMemberByAuthKey(authKey);
 	}
 
-	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page, int itemsInAPage) {
+	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page, int itemsInAPage, Map<String, Object> param) {
 		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
 
-		return memberDao.getForPrintMembers(searchKeywordType, searchKeyword, limitStart, limitTake);
+		param.put("searchKeywordType", searchKeywordType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("limitStart", limitStart);
+		param.put("limitTake", limitTake);
+
+		return memberDao.getForPrintMembers(param);
+	}
+
+	public Member getForPrintMember(int id) {
+		return memberDao.getForPrintMember(id);
 	}
 }
