@@ -37,7 +37,7 @@ public class ArticleService {
 
 		int id = Util.getAsInt(param.get("id"), 0);
 		
-		changeInputFileRelIds(param, id);
+		genFileService.changeInputFileRelIds(param, id);
 
 		return new ResultData("S-1", "성공하였습니다.", "id", id);
 	}
