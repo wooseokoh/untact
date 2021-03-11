@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -250,5 +251,51 @@ public class Util {
 
 	public static String numberFormat(String numStr) {
 		return numberFormat(Integer.parseInt(numStr));
+	}
+
+	public static boolean allNumberString(String str) {
+		if ( str == null ) {
+			return false;
+		}
+
+		if ( str.length() == 0 ) {
+			return true;
+		}
+
+		for ( int i = 0; i < str.length(); i++ ) {
+			if ( Character.isDigit(str.charAt(i)) == false ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean startsWithNumberString(String str) {
+		if ( str == null ) {
+			return false;
+		}
+
+		if ( str.length() == 0 ) {
+			return false;
+		}
+
+		return Character.isDigit(str.charAt(0));
+	}
+
+	public static boolean isStandardLoginIdString(String str) {
+		if ( str == null ) {
+			return false;
+		}
+
+		if ( str.length() == 0 ) {
+			return false;
+		}
+
+		// 조건
+		// 5자 이상, 20자 이하로 구성
+		// 숫자로 시작 금지
+		// _, 알파벳, 숫자로만 구성
+		return Pattern.matches("^[a-zA-Z]{1}[a-zA-Z0-9_]{4,19}$", str);
 	}
 }
