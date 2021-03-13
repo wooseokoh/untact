@@ -87,8 +87,13 @@ email = "wsoh@gmail.com";
 
 /*
 INSERT INTO article
-(regDate, updateDate, memberId, title, `body`)
-SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, CONCAT('제목_', FLOOR(RAND() * 1000) + 1), CONCAT('내용_', FLOOR(RAND() * 1000) + 1)
+(regDate, updateDate, memberId, title, `body`, boardId)
+SELECT NOW(),
+NOW(),
+FLOOR(RAND() * 2) + 1,
+CONCAT('제목_', FLOOR(RAND() * 1000) + 1),
+CONCAT('내용_', FLOOR(RAND() * 1000) + 1),
+FLOOR(RAND() * 2) + 1
 FROM article;
 */
 
