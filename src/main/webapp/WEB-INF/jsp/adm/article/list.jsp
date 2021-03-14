@@ -87,11 +87,10 @@
 			<c:if test="${pageMenuStart != 1}">
 				<a href="${Util.getNewUrl(requestUrl, 'page', 1)}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
 					<span class="sr-only">Previous</span>
-					
+	
 					<i class="fas fa-chevron-left"></i>
 				</a>
 			</c:if>
-
 
 			<c:forEach var="i" begin="${pageMenuStart}" end="${pageMenuEnd}">
 				<c:set var="aClassStr" value="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium" />
@@ -106,9 +105,9 @@
 
 			<c:if test="${pageMenuEnd != totalPage}">
 				<a href="${Util.getNewUrl(requestUrl, 'page', totalPage)}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-
+	
 					<span class="sr-only">Next</span>
-
+	
 					<i class="fas fa-chevron-right"></i>
 				</a>
 			</c:if>
